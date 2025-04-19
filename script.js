@@ -12,6 +12,20 @@ document.getElementById("form-examen").addEventListener("submit", function (e) {
   // TODO : Sauvegarder l'examen dans le localStorage sous une clé basée sur
   // le nom du propriétaire
   const examsKey = "examens_" + examen.proprietaire;
+
+  if (localStorage.getItem(examsKey)) {
+    if (
+      confirm(
+        "Ce propriétaire existe déjà. Voulez-vous ajouter un nouvel examen pour ce propriétaire ?"
+      )
+    ) {
+      // Continue to add the exam for the existing owner
+    } else {
+      alert("Ajout annulé.");
+      return;
+    }
+  }
+
   const exams = JSON.parse(localStorage.getItem(examsKey)) || [];
   exams.push(examen);
   localStorage.setItem(examsKey, JSON.stringify(exams));
